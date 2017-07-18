@@ -1,5 +1,5 @@
 # docker-genieacs-gui
-Run GenieACS frontend in a docker container
+Run GenieACS front end in a docker container
 
 ## Container Layout
   * running Alpine-3.5
