@@ -48,13 +48,17 @@ COPY env.d $ENV_DIR
 
 USER $APP_USER
 
+ARG RAILS_ENV
+
 ENV GENIEACS_API_HOST="localhost" \
     GENIEACS_API_PORT="7557" \
-    RAILS_ENV="development"
+    RAILS_ENV="${RAILS_ENV:-development}"
 
 # XXX move to startup script and run once RAILS_ENV is different
 # from last container start?
-RUN ./bin/rails db:migrate && echo "$RAILS_ENV" > tmp/last_rails_env
+RUN set -ex; \
+    ./bin/rails db:migrate; \
+    echo "$RAILS_ENV" > tmp/last_rails_env
 
 EXPOSE 3000
 
