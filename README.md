@@ -29,10 +29,8 @@ docker run -it --rm -p 3000:3000 -e GENIEACS_API_HOST=<fqdn.or.ip.addr> genieacs
 
 If you want to customize the configuration files it is advisable to put them on persistent storage first, e.g.:
 ```
-P=/tmp/local/config/path
-mkdir -p "$P"
-docker run -d --name cfg_export -v "$P:/tmp/export" genieacs-gui:edge
-docker exec --user $(id -u) cfg_export cp -r /etc/genieacs-gui/conf.d/. /tmp/export
+docker run -d --name cfg_export genieacs-gui:edge
+docker cp -L cfg_export:/etc/genieacs-gui/conf.d /tmp/
 docker stop cfg_export
 docker rm -v cfg_export
 ```
